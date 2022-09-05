@@ -51,7 +51,7 @@ for (let [key, fn] of Object.entries(userSchema)) {
 ```
 
 [github-actions-image]: https://github.com/validator-lite/actions/workflows/test.yml
-[github-actions-url]: https://img.shields.io/github/workflow/status/validator-lite/test?style=for-the-badge "github-actions"
+[github-actions-url]: https://img.shields.io/github/workflow/status/poppinss/validator-lite/test?style=for-the-badge "github-actions"
 
 [npm-image]: https://img.shields.io/npm/v/validator-lite.svg?style=for-the-badge&logo=npm
 [npm-url]: https://npmjs.org/package/validator-lite "npm"
