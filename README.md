@@ -17,7 +17,7 @@ Install the module from npm registry as follows:
 npm install @poppinss/validator-lite
 ```
 
-## Usage
+## Basic usage
 The following example shows how to use the validator :
 
 ```ts
@@ -49,6 +49,113 @@ for (let [key, fn] of Object.entries(userSchema)) {
   fn(key, user[key])
 }
 ```
+
+## API
+Following is the list of available methods :
+
+### schema.string
+Validates the value to check if it exists and if it is a valid string. Empty strings fail the validations, and you must use the optional variant to allow empty strings.
+
+```ts
+{
+  APP_KEY: schema.string()
+}
+// Mark it as optional
+{
+  APP_KEY: schema.string.optional()
+}
+```
+
+You can also force the value to have one of the pre-defined formats.
+
+```ts
+// Must be a valid host (url or ip)
+schema.string({ format: 'host' })
+// Must be a valid URL
+schema.string({ format: 'url' })
+// Must be a valid email address
+schema.string({ format: 'email' })
+```
+
+When validating the `url` format, you can also define additional options to force/ignore the `tld` and `protocol`.
+
+```ts
+schema.string({ format: 'url', tld: false, protocol: false })
+```
+
+---
+
+### schema.boolean
+
+Enforces the value to be a valid string representation of a boolean. Following values are considered as valid booleans and will be converted to `true` or `false`.
+
+- `'1', 'true'` are casted to `Boolean(true)`
+- `'0', 'false'` are casted to `Boolean(false)`
+
+```ts
+{
+  CACHE_VIEWS: schema.boolean()
+}
+// Mark it as optional
+{
+  CACHE_VIEWS: schema.boolean.optional()
+}
+```
+
+---
+
+### schema.number
+
+Enforces the value to be a valid string representation of a number.
+
+```ts
+{
+  PORT: schema.number()
+}
+// Mark it as optional
+{
+  PORT: schema.number.optional()
+}
+```
+
+---
+
+### schema.enum
+
+Forces the value to be one of the pre-defined values.
+
+```ts
+{
+  MY_ENUM: schema.enum(['development', 'production'] as const)
+}
+// Mark it as optional
+{
+  MY_ENUM: schema.enum.optional(['development', 'production'] as const)
+}
+```
+
+---
+
+### Custom functions
+For every other validation use case, you can define your custom functions.
+
+```ts
+{
+  PORT: (key, value) => {
+    if (!value) {
+      throw new Error('Value for PORT is required')
+    }
+    
+    if (isNaN(Number(value))) {
+      throw new Error('Value for PORT must be a valid number')    
+    }
+    return Number(value)
+  }
+}
+```
+
+- Make sure to always return the value after validating it.
+- The return value can be different from the initial input value.
 
 [github-actions-image]: https://github.com/validator-lite/actions/workflows/test.yml
 [github-actions-url]: https://img.shields.io/github/workflow/status/poppinss/validator-lite/test?style=for-the-badge "github-actions"
