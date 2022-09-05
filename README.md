@@ -4,7 +4,7 @@
 
 [![github-actions-image]][github-actions-url] [![npm-image]][npm-url] [![license-image]][license-url] [![typescript-image]][typescript-url]
 
-A short brief
+Really simple and lightweight validation library for JavaScript. Used by [**@adonisjs/env**](https://github.com/adonisjs/env/) for validating environment variables.
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
