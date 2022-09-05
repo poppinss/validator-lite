@@ -1,5 +1,5 @@
 /*
- * @adonisjs/env
+ * @poppinss/validator-lite
  *
  * (c) Harminder Virk <virk@adonisjs.com>
  *
