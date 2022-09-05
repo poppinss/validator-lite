@@ -1,5 +1,5 @@
 import { test } from '@japa/runner'
-import { schema } from '../src/Schema'
+import { schema } from '../src/schema'
 
 test.group('schema | number', () => {
   test('raise error when value is missing', ({ assert }) => {
