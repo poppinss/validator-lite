@@ -23,6 +23,9 @@
     "version": "npm run build",
     "sync-labels": "github-label-sync --labels ./node_modules/@adonisjs/mrm-preset/gh-labels.json poppinss/validator-lite"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "dependencies": {
     "@poppinss/utils": "^5.0.0",
     "validator": "^13.7.0"
