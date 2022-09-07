@@ -2,7 +2,7 @@
   "name": "@poppinss/validator-lite",
   "version": "1.0.0",
   "description": "Simple validation library",
-  "main": "build/src/index.js",
+  "main": "build/index.js",
   "files": [
     "build/src",
     "build/index.d.ts",
