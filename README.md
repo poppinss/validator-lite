@@ -15,6 +15,12 @@ Really simple and lightweight validation library for JavaScript. Used by [**@ado
 Install the module from npm registry as follows:
 ```
 npm install @poppinss/validator-lite
+
+# yarn
+yarn add @poppinss/validator-lite
+
+# pnpm 
+pnpm add @poppinss/validator-lite
 ```
 
 ## Basic usage
@@ -161,7 +167,7 @@ For every other validation use case, you can define your custom functions.
 [github-actions-url]: https://github.com/poppinss/validator-lite/actions "github-actions"
 
 [npm-image]: https://img.shields.io/npm/v/validator-lite.svg?style=for-the-badge&logo=npm
-[npm-url]: https://npmjs.org/package/validator-lite "npm"
+[npm-url]: https://www.npmjs.com/package/@poppinss/validator-lite "npm"
 
 [license-image]: https://img.shields.io/npm/l/validator-lite?color=blueviolet&style=for-the-badge
 [license-url]: LICENSE.md "license"
