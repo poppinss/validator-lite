@@ -1,7 +1,7 @@
 /*
  * @poppinss/validator-lite
  *
- * (c) Harminder Virk <virk@adonisjs.com>
+ * (c) Poppinss
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -33,7 +33,7 @@ export function castToNumber(key: string, value: string, message?: string): numb
  * value will also be casted to a number
  */
 export function number(options?: SchemaFnOptions) {
-  return function validate(key: string, value?: string) {
+  return function validate(key: string, value?: string): number {
     ensureValue(key, value, options?.message)
     return castToNumber(key, value, options?.message)
   }
@@ -44,7 +44,7 @@ export function number(options?: SchemaFnOptions) {
  * values
  */
 number.optional = function optionalNumber(options?: SchemaFnOptions) {
-  return function validate(key: string, value?: string) {
+  return function validate(key: string, value?: string): number | undefined {
     if (!value) {
       return undefined
     }

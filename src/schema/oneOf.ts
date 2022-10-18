@@ -1,7 +1,7 @@
 /*
  * @poppinss/validator-lite
  *
- * (c) Harminder Virk <virk@adonisjs.com>
+ * (c) Poppinss
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -56,8 +56,8 @@ function ensureOneOf(choices: readonly any[], key: string, value: any, message?:
 /**
  * Enforces value to be one of the defined choices
  */
-export function oneOf(choices: readonly any[], options?: SchemaFnOptions) {
-  return function validate(key: string, value?: string) {
+export function oneOf<K extends any>(choices: readonly K[], options?: SchemaFnOptions) {
+  return function validate(key: string, value?: string): K {
     ensureValue(key, value, options?.message)
     return ensureOneOf(choices, key, value, options?.message)
   }
@@ -66,8 +66,11 @@ export function oneOf(choices: readonly any[], options?: SchemaFnOptions) {
 /**
  * Similar to oneOf, but also allows optional properties
  */
-oneOf.optional = function optionalBoolean(choices: readonly any[], options?: SchemaFnOptions) {
-  return function validate(key: string, value?: string) {
+oneOf.optional = function optionalEnum<K extends any>(
+  choices: readonly K[],
+  options?: SchemaFnOptions
+) {
+  return function validate(key: string, value?: string): K | undefined {
     if (!value) {
       return undefined
     }
