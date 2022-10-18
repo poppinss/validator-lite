@@ -1,7 +1,7 @@
 /*
  * @poppinss/validator-lite
  *
- * (c) Harminder Virk <virk@adonisjs.com>
+ * (c) Poppinss
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -62,7 +62,7 @@ const formats: {
  * Enforces the value to exist and be of type string
  */
 export function string(options?: StringFnOptions) {
-  return function validate(key: string, value?: string) {
+  return function validate(key: string, value?: string): string {
     ensureValue(key, value, options?.message)
 
     if (options?.format) {
@@ -77,7 +77,7 @@ export function string(options?: StringFnOptions) {
  * Same as the string rule, but allows non-existing values too
  */
 string.optional = function optionalString(options?: StringFnOptions) {
-  return function validate(key: string, value?: string) {
+  return function validate(key: string, value?: string): string | undefined {
     if (!value) {
       return undefined
     }

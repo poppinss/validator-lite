@@ -1,7 +1,7 @@
 /*
  * @poppinss/validator-lite
  *
- * (c) Harminder Virk <virk@adonisjs.com>
+ * (c) Poppinss
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -37,7 +37,7 @@ function castToBoolean(key: string, value: string, message?: string): boolean {
  * type
  */
 export function boolean(options?: SchemaFnOptions) {
-  return function validate(key: string, value?: string) {
+  return function validate(key: string, value?: string): boolean {
     ensureValue(key, value, options?.message)
     return castToBoolean(key, value, options?.message)
   }
@@ -47,7 +47,7 @@ export function boolean(options?: SchemaFnOptions) {
  * Same as boolean, but allows undefined values as well.
  */
 boolean.optional = function optionalBoolean(options?: SchemaFnOptions) {
-  return function validate(key: string, value?: string) {
+  return function validate(key: string, value?: string): boolean | undefined {
     if (!value) {
       return undefined
     }
