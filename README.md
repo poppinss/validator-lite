@@ -163,7 +163,7 @@ For every other validation use case, you can define your custom functions.
 - Make sure to always return the value after validating it.
 - The return value can be different from the initial input value.
 
-[github-actions-image]: https://img.shields.io/github/workflow/status/poppinss/validator-lite/test?style=for-the-badge
+[github-actions-image]: https://img.shields.io/github/actions/workflow/status/poppinss/validator-lite/test.yml?style=for-the-badge
 [github-actions-url]: https://github.com/poppinss/validator-lite/actions "github-actions"
 
 [npm-image]: https://img.shields.io/npm/v/validator-lite.svg?style=for-the-badge&logo=npm
