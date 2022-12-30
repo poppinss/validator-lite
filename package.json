@@ -58,7 +58,7 @@
     "type": "git",
     "url": "git+https://github.com/poppinss/validator-lite.git"
   },
-  "author": "Julien Ripouteau <julien@ripouteau.com>",
+  "author": "Julien Ripouteau <julien@ripouteau.com>,poppinss,virk",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/poppinss/validator-lite/issues"
