@@ -166,7 +166,7 @@ For every other validation use case, you can define your custom functions.
 [github-actions-image]: https://img.shields.io/github/actions/workflow/status/poppinss/validator-lite/test.yml?style=for-the-badge
 [github-actions-url]: https://github.com/poppinss/validator-lite/actions "github-actions"
 
-[npm-image]: https://img.shields.io/npm/v/validator-lite.svg?style=for-the-badge&logo=npm
+[npm-image]: https://img.shields.io/npm/v/@poppinss/validator-lite.svg?style=for-the-badge&logo=npm
 [npm-url]: https://www.npmjs.com/package/@poppinss/validator-lite "npm"
 
 [license-image]: https://img.shields.io/npm/l/validator-lite?color=blueviolet&style=for-the-badge
