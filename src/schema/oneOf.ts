@@ -7,7 +7,6 @@
  * file that was distributed with this source code.
  */
 
-import { Exception } from '@poppinss/utils'
 import { SchemaFnOptions } from '../contracts'
 import { ensureValue, BOOLEAN_NEGATIVES, BOOLEAN_POSITIVES } from './helpers'
 
@@ -43,13 +42,11 @@ function ensureOneOf(choices: readonly any[], key: string, value: any, message?:
   /**
    * Otherwise raise exception
    */
-  throw new Exception(
+  throw new Error(
     message ||
       `Value for environment variable "${key}" must be one of "${choices.join(
         ','
-      )}", instead received "${value}"`,
-    500,
-    'E_INVALID_ENV_VALUE'
+      )}", instead received "${value}"`
   )
 }
 

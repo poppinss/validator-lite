@@ -28,7 +28,6 @@
     "access": "public"
   },
   "dependencies": {
-    "@poppinss/utils": "^5.0.0",
     "validator": "^13.9.0"
   },
   "devDependencies": {
