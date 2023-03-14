@@ -7,7 +7,6 @@
  * file that was distributed with this source code.
  */
 
-import { Exception } from '@poppinss/utils'
 import { SchemaFnOptions } from '../contracts'
 import { ensureValue } from './helpers'
 
@@ -17,11 +16,9 @@ import { ensureValue } from './helpers'
 export function castToNumber(key: string, value: string, message?: string): number {
   const castedValue = Number(value)
   if (isNaN(castedValue)) {
-    throw new Exception(
+    throw new Error(
       message ||
-        `Value for environment variable "${key}" must be numeric, instead received "${value}"`,
-      500,
-      'E_INVALID_ENV_VALUE'
+        `Value for environment variable "${key}" must be numeric, instead received "${value}"`
     )
   }
 

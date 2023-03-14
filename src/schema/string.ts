@@ -7,7 +7,6 @@
  * file that was distributed with this source code.
  */
 
-import { Exception } from '@poppinss/utils'
 import { StringFnOptions, StringFnUrlOptions } from '../contracts'
 import { ensureValue } from './helpers'
 
@@ -24,11 +23,9 @@ const formats: {
 } = {
   email: (key: string, value: string, options: StringFnOptions) => {
     if (!require('validator/lib/isEmail')(value)) {
-      throw new Exception(
+      throw new Error(
         options.message ||
-          `Value for environment variable "${key}" must be a valid email, instead received "${value}"`,
-        500,
-        'E_INVALID_ENV_VALUE'
+          `Value for environment variable "${key}" must be a valid email, instead received "${value}"`
       )
     }
   },
@@ -37,22 +34,18 @@ const formats: {
       !require('validator/lib/isFQDN')(value, { require_tld: false }) &&
       !require('validator/lib/isIP')(value)
     ) {
-      throw new Exception(
+      throw new Error(
         options.message ||
-          `Value for environment variable "${key}" must be a valid (domain or ip), instead received "${value}"`,
-        500,
-        'E_INVALID_ENV_VALUE'
+          `Value for environment variable "${key}" must be a valid (domain or ip), instead received "${value}"`
       )
     }
   },
   url: (key: string, value: string, options: StringFnUrlOptions) => {
     const { tld = true, protocol = true } = options
     if (!require('validator/lib/isURL')(value, { require_tld: tld, require_protocol: protocol })) {
-      throw new Exception(
+      throw new Error(
         options.message ||
-          `Value for environment variable "${key}" must be a valid URL, instead received "${value}"`,
-        500,
-        'E_INVALID_ENV_VALUE'
+          `Value for environment variable "${key}" must be a valid URL, instead received "${value}"`
       )
     }
   },

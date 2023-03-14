@@ -7,7 +7,6 @@
  * file that was distributed with this source code.
  */
 
-import { Exception } from '@poppinss/utils'
 import { SchemaFnOptions } from '../contracts'
 import { ensureValue, BOOLEAN_NEGATIVES, BOOLEAN_POSITIVES } from './helpers'
 
@@ -23,11 +22,9 @@ function castToBoolean(key: string, value: string, message?: string): boolean {
     return false
   }
 
-  throw new Exception(
+  throw new Error(
     message ||
-      `Value for environment variable "${key}" must be a boolean, instead received "${value}"`,
-    500,
-    'E_INVALID_ENV_VALUE'
+      `Value for environment variable "${key}" must be a boolean, instead received "${value}"`
   )
 }
 

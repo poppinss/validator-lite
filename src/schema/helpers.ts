@@ -7,8 +7,6 @@
  * file that was distributed with this source code.
  */
 
-import { Exception } from '@poppinss/utils'
-
 /**
  * Following values are considered as "true"
  */
@@ -28,10 +26,6 @@ export function ensureValue(
   message?: string
 ): asserts value is string {
   if (!value) {
-    throw new Exception(
-      message || `Missing environment variable "${key}"`,
-      500,
-      'E_MISSING_ENV_VALUE'
-    )
+    throw new Error(message || `Missing environment variable "${key}"`)
   }
 }
