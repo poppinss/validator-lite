@@ -80,6 +80,32 @@ test.group('schema | number.optional', () => {
     expectTypeOf(value).toEqualTypeOf<number | undefined>()
     assert.deepEqual(value, -22.198)
   })
+
+  test('allow conditional optional', ({ assert, expectTypeOf }) => {
+    const value = schema.number.optionalWhen(true)('PORT')
+    expectTypeOf(value).toEqualTypeOf<number | undefined>()
+    assert.isUndefined(value)
+
+    const value2 = schema.number.optionalWhen(false)('PORT', '22')
+    expectTypeOf(value2).toEqualTypeOf<number | undefined>()
+    assert.deepEqual(value2, 22)
+
+    const fn = () => schema.number.optionalWhen(false)('PORT')
+    assert.throws(fn, 'Missing environment variable "PORT"')
+  })
+
+  test('allow conditional optional with function', ({ assert, expectTypeOf }) => {
+    const value = schema.number.optionalWhen(() => true)('PORT')
+    expectTypeOf(value).toEqualTypeOf<number | undefined>()
+    assert.isUndefined(value)
+
+    const value2 = schema.number.optionalWhen(() => false)('PORT', '22')
+    expectTypeOf(value2).toEqualTypeOf<number | undefined>()
+    assert.deepEqual(value2, 22)
+
+    const fn = () => schema.number.optionalWhen(() => false)('PORT')
+    assert.throws(fn, 'Missing environment variable "PORT"')
+  })
 })
 
 test.group('schema | string', () => {
