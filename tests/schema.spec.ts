@@ -154,6 +154,32 @@ test.group('schema | string.optional', () => {
       'mailgun:1234/v1'
     )
   })
+
+  test('allow conditional optional', ({ assert, expectTypeOf }) => {
+    const value = schema.string.optionalWhen(true)('PORT')
+    expectTypeOf(value).toEqualTypeOf<string | undefined>()
+    assert.deepEqual(value, undefined)
+
+    const value2 = schema.string.optionalWhen(false)('PORT', '22')
+    expectTypeOf(value2).toEqualTypeOf<string | undefined>()
+    assert.deepEqual(value2, '22')
+
+    const fn = () => schema.string.optionalWhen(false)('PORT')
+    assert.throws(fn, 'Missing environment variable "PORT"')
+  })
+
+  test('allow conditional optional with function', ({ assert, expectTypeOf }) => {
+    const value = schema.string.optionalWhen(() => true)('PORT')
+    expectTypeOf(value).toEqualTypeOf<string | undefined>()
+    assert.deepEqual(value, undefined)
+
+    const value2 = schema.string.optionalWhen(() => false)('PORT', '22')
+    expectTypeOf(value2).toEqualTypeOf<string | undefined>()
+    assert.deepEqual(value2, '22')
+
+    const fn = () => schema.string.optionalWhen(() => false)('PORT')
+    assert.throws(fn, 'Missing environment variable "PORT"')
+  })
 })
 
 test.group('schema | boolean', () => {
