@@ -290,6 +290,32 @@ test.group('schema | boolean.optional', () => {
     expectTypeOf(value).toEqualTypeOf<boolean | undefined>()
     assert.deepEqual(value, false)
   })
+
+  test('allow conditional optional', ({ assert, expectTypeOf }) => {
+    const value = schema.boolean.optionalWhen(true)('PORT')
+    expectTypeOf(value).toEqualTypeOf<boolean | undefined>()
+    assert.deepEqual(value, undefined)
+
+    const value2 = schema.boolean.optionalWhen(false)('PORT', 'true')
+    expectTypeOf(value2).toEqualTypeOf<boolean | undefined>()
+    assert.deepEqual(value2, true)
+
+    const fn = () => schema.boolean.optionalWhen(false)('PORT')
+    assert.throws(fn, 'Missing environment variable "PORT"')
+  })
+
+  test('allow conditional optional with function', ({ assert, expectTypeOf }) => {
+    const value = schema.boolean.optionalWhen(() => true)('PORT')
+    expectTypeOf(value).toEqualTypeOf<boolean | undefined>()
+    assert.deepEqual(value, undefined)
+
+    const value2 = schema.boolean.optionalWhen(() => false)('PORT', 'true')
+    expectTypeOf(value2).toEqualTypeOf<boolean | undefined>()
+    assert.deepEqual(value2, true)
+
+    const fn = () => schema.boolean.optionalWhen(() => false)('PORT')
+    assert.throws(fn, 'Missing environment variable "PORT"')
+  })
 })
 
 test.group('schema | enum', () => {
