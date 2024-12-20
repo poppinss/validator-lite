@@ -48,3 +48,20 @@ number.optional = function optionalNumber(options?: SchemaFnOptions) {
     return castToNumber(key, value, options?.message)
   }
 }
+
+/**
+ * Same as the optional rule, but allows a condition to decide when to
+ * validate the value
+ */
+number.optionalWhen = function optionalWhenNumber(
+  condition: boolean | ((key: string, value?: string) => boolean),
+  options?: SchemaFnOptions
+) {
+  return function validate(key: string, value?: string): number | undefined {
+    if (typeof condition === 'function' ? condition(key, value) : condition) {
+      return number.optional(options)(key, value)
+    }
+
+    return number(options)(key, value)
+  }
+}

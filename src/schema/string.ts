@@ -82,3 +82,20 @@ string.optional = function optionalString(options?: StringFnOptions) {
     return value
   }
 }
+
+/**
+ * Same as the optional rule, but allows a condition to decide when to
+ * validate the value
+ */
+string.optionalWhen = function optionalWhenString(
+  condition: boolean | ((key: string, value?: string) => boolean),
+  options?: StringFnOptions
+) {
+  return function validate(key: string, value?: string): string | undefined {
+    if (typeof condition === 'function' ? condition(key, value) : condition) {
+      return string.optional(options)(key, value)
+    }
+
+    return string(options)(key, value)
+  }
+}

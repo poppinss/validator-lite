@@ -51,3 +51,20 @@ boolean.optional = function optionalBoolean(options?: SchemaFnOptions) {
     return castToBoolean(key, value, options?.message)
   }
 }
+
+/**
+ * Same as the optional rule, but allows a condition to decide when to
+ * validate the value
+ */
+boolean.optionalWhen = function optionalWhenBoolean(
+  condition: boolean | ((key: string, value?: string) => boolean),
+  options?: SchemaFnOptions
+) {
+  return function validate(key: string, value?: string): boolean | undefined {
+    if (typeof condition === 'function' ? condition(key, value) : condition) {
+      return boolean.optional(options)(key, value)
+    }
+
+    return boolean(options)(key, value)
+  }
+}
