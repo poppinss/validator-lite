@@ -7,10 +7,10 @@
  * file that was distributed with this source code.
  */
 
-import { number } from './number'
-import { string } from './string'
-import { boolean } from './boolean'
-import { oneOf } from './oneOf'
+import { oneOf } from './one_of.js'
+import { number } from './number.js'
+import { string } from './string.js'
+import { boolean } from './boolean.js'
 
 export const schema = {
   number,

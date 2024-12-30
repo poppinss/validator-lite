@@ -7,5 +7,4 @@
  * file that was distributed with this source code.
  */
 
-export * from './src/contracts'
-export { schema } from './src/schema/index'
+export { schema } from './src/schema/main.js'

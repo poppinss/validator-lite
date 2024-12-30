@@ -7,8 +7,8 @@
  * file that was distributed with this source code.
  */
 
-import { SchemaFnOptions } from '../contracts'
-import { ensureValue, BOOLEAN_NEGATIVES, BOOLEAN_POSITIVES } from './helpers'
+import type { SchemaFnOptions } from '../types.js'
+import { ensureValue, BOOLEAN_NEGATIVES, BOOLEAN_POSITIVES } from './helpers.js'
 
 /**
  * Casts a string value to a boolean
@@ -22,10 +22,7 @@ function castToBoolean(key: string, value: string, message?: string): boolean {
     return false
   }
 
-  throw new Error(
-    message ||
-      `Value for environment variable "${key}" must be a boolean, instead received "${value}"`
-  )
+  throw new Error(message || `"${key}" env variable must be a boolean (Current value: "${value}")`)
 }
 
 /**

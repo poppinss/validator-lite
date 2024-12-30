@@ -7,19 +7,16 @@
  * file that was distributed with this source code.
  */
 
-import { SchemaFnOptions } from '../contracts'
-import { ensureValue } from './helpers'
+import { ensureValue } from './helpers.js'
+import type { SchemaFnOptions } from '../types.js'
 
 /**
  * Casts the string to a number and ensures it is no NaN
  */
 export function castToNumber(key: string, value: string, message?: string): number {
   const castedValue = Number(value)
-  if (isNaN(castedValue)) {
-    throw new Error(
-      message ||
-        `Value for environment variable "${key}" must be numeric, instead received "${value}"`
-    )
+  if (Number.isNaN(castedValue)) {
+    throw new Error(message || `"${key}" env variable must be a number (Current value: "${value}")`)
   }
 
   return castedValue

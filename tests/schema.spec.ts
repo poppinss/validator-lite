@@ -8,7 +8,7 @@
  */
 
 import { test } from '@japa/runner'
-import { schema } from '../src/schema'
+import { schema } from '../src/schema/main.js'
 
 test.group('schema | number', () => {
   test('raise error when value is missing', ({ assert }) => {
@@ -18,7 +18,7 @@ test.group('schema | number', () => {
 
   test('raise error when value is not a valid number', ({ assert }) => {
     const fn = () => schema.number()('PORT', 'foo')
-    assert.throws(fn, 'Value for environment variable "PORT" must be numeric')
+    assert.throws(fn, '"PORT" env variable must be a number (Current value: "foo")')
   })
 
   test('raise error when value is an empty string', ({ assert }) => {
@@ -54,7 +54,7 @@ test.group('schema | number.optional', () => {
 
   test('raise error when value is not a valid number', ({ assert }) => {
     const fn = () => schema.number.optional()('PORT', 'foo')
-    assert.throws(fn, 'Value for environment variable "PORT" must be numeric')
+    assert.throws(fn, '"PORT" env variable must be a number (Current value: "foo")')
   })
 
   test('return undefined when value is an empty string', ({ assert, expectTypeOf }) => {
@@ -216,7 +216,7 @@ test.group('schema | boolean', () => {
 
   test('raise error when value is not a valid boolean', ({ assert }) => {
     const fn = () => schema.boolean()('CACHE_VIEWS', 'foo')
-    assert.throws(fn, 'Value for environment variable "CACHE_VIEWS" must be a boolean')
+    assert.throws(fn, '"CACHE_VIEWS" env variable must be a boolean (Current value: "foo"')
   })
 
   test('raise error when value is an empty string', ({ assert }) => {
@@ -258,7 +258,7 @@ test.group('schema | boolean.optional', () => {
 
   test('raise error when value is not a valid boolean', ({ assert }) => {
     const fn = () => schema.boolean.optional()('CACHE_VIEWS', 'foo')
-    assert.throws(fn, 'Value for environment variable "CACHE_VIEWS" must be a boolean')
+    assert.throws(fn, '"CACHE_VIEWS" env variable must be a boolean (Current value: "foo"')
   })
 
   test('return undefined when value is an empty string', ({ assert, expectTypeOf }) => {
@@ -326,7 +326,7 @@ test.group('schema | enum', () => {
 
   test('raise error when value is not one of the defined options', ({ assert }) => {
     const fn = () => schema.enum(['api', 'web'])('AUTH_GUARD', 'foo')
-    assert.throws(fn, 'Value for environment variable "AUTH_GUARD" must be one of "api,web"')
+    assert.throws(fn, '"AUTH_GUARD" env variable must be one of "api,web" (Current value: "foo")')
   })
 
   test('raise error when value is an empty string', ({ assert }) => {

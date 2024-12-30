@@ -20,13 +20,18 @@ export type SchemaFnOptions = {
   message?: string
 }
 
+/**
+ * Options accepted by the URL format
+ */
 export type StringFnUrlOptions = SchemaFnOptions & {
   format: 'url'
+
   /**
    * Whether the URL must have a valid TLD in their domain.
    * Defaults to `true`.
    */
   tld?: boolean
+
   /**
    * Whether the URL must start with a valid protocol.
    * Defaults to `true`.

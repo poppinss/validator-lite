@@ -7,42 +7,46 @@
  * file that was distributed with this source code.
  */
 
-import { StringFnOptions, StringFnUrlOptions } from '../contracts'
-import { ensureValue } from './helpers'
+import { ensureValue } from './helpers.js'
+import type { StringFnOptions } from '../types.js'
+import { isFQDN, isIP, isURL, isEmail } from '../validator.js'
 
 /**
  * Formats against which a string can be optionally validated. We
  * lazy load the dependencies required for validating formats
  */
 const formats: {
-  [format in Exclude<StringFnOptions['format'], undefined>]: (
+  [format in 'email' | 'host' | 'url']: (
     key: string,
     value: string,
     options: StringFnOptions
   ) => void
 } = {
-  email: (key: string, value: string, options: StringFnOptions) => {
-    if (!require('validator/lib/isEmail')(value)) {
+  email: (key, value, options) => {
+    if (!isEmail(value)) {
       throw new Error(
         options.message ||
           `Value for environment variable "${key}" must be a valid email, instead received "${value}"`
       )
     }
   },
-  host: (key: string, value: string, options: StringFnOptions) => {
-    if (
-      !require('validator/lib/isFQDN')(value, { require_tld: false }) &&
-      !require('validator/lib/isIP')(value)
-    ) {
+  host: (key, value, options) => {
+    if (!isFQDN(value, { require_tld: false }) && !isIP(value)) {
       throw new Error(
         options.message ||
           `Value for environment variable "${key}" must be a valid (domain or ip), instead received "${value}"`
       )
     }
   },
-  url: (key: string, value: string, options: StringFnUrlOptions) => {
-    const { tld = true, protocol = true } = options
-    if (!require('validator/lib/isURL')(value, { require_tld: tld, require_protocol: protocol })) {
+  url: (key, value, options) => {
+    const { tld, protocol } = Object.assign(
+      {
+        tld: true,
+        protocol: true,
+      },
+      options
+    )
+    if (!isURL(value, { require_tld: tld, require_protocol: protocol })) {
       throw new Error(
         options.message ||
           `Value for environment variable "${key}" must be a valid URL, instead received "${value}"`
