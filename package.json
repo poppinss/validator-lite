@@ -1,6 +1,6 @@
 {
   "name": "@poppinss/validator-lite",
-  "version": "1.0.3",
+  "version": "2.0.0",
   "description": "Simple validation library",
   "type": "module",
   "files": [
