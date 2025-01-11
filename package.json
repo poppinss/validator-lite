@@ -10,7 +10,7 @@
   ],
   "exports": {
     ".": "./build/index.js",
-    "./types": "./build/types.js"
+    "./types": "./build/src/types.js"
   },
   "scripts": {
     "pretest": "npm run lint",
@@ -64,7 +64,8 @@
   },
   "tsup": {
     "entry": [
-      "index.ts"
+      "index.ts",
+      "src/types.ts"
     ],
     "outDir": "./build",
     "clean": true,
