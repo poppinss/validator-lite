@@ -44,6 +44,6 @@ export type StringFnUrlOptions = SchemaFnOptions & {
  */
 export type StringFnOptions =
   | (SchemaFnOptions & {
-      format?: 'host' | 'email'
+      format?: 'host' | 'email' | 'uuid'
     })
   | StringFnUrlOptions

@@ -148,6 +148,16 @@ test.group('schema | string.optional', () => {
     assert.equal(schema.string({ format: 'host' })('HOST', 'adonisjs.dev'), 'adonisjs.dev')
   })
 
+  test('validate value as uuid', ({ assert }) => {
+    const fn = () =>
+      schema.string({ format: 'uuid' })('MY_UUID', '4b87857b-6x83c-4b85-8d77-cd4a2ce718af')
+    assert.throws(fn, 'Value for environment variable "MY_UUID" must be a valid UUID')
+    assert.equal(
+      schema.string({ format: 'uuid' })('MY_UUID', '4b87857b-683c-4b85-8d77-cd4a2ce718af'),
+      '4b87857b-683c-4b85-8d77-cd4a2ce718af'
+    )
+  })
+
   test('validate value as a url (strict defaults)', ({ assert }) => {
     const fn = () => schema.string({ format: 'url' })('MAILGUN_URL', 'foo.com')
     assert.throws(fn, 'Value for environment variable "MAILGUN_URL" must be a valid URL')

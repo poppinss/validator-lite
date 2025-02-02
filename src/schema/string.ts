@@ -9,14 +9,14 @@
 
 import { ensureValue } from './helpers.js'
 import type { StringFnOptions } from '../types.js'
-import { isFQDN, isIP, isURL, isEmail } from '../validator.js'
+import { isFQDN, isIP, isURL, isEmail, isUUID } from '../validator.js'
 
 /**
  * Formats against which a string can be optionally validated. We
  * lazy load the dependencies required for validating formats
  */
 const formats: {
-  [format in 'email' | 'host' | 'url']: (
+  [format in 'email' | 'host' | 'url' | 'uuid']: (
     key: string,
     value: string,
     options: StringFnOptions
@@ -50,6 +50,14 @@ const formats: {
       throw new Error(
         options.message ||
           `Value for environment variable "${key}" must be a valid URL, instead received "${value}"`
+      )
+    }
+  },
+  uuid: (key, value, options) => {
+    if (!isUUID(value)) {
+      throw new Error(
+        options.message ||
+          `Value for environment variable "${key}" must be a valid UUID, instead received "${value}"`
       )
     }
   },

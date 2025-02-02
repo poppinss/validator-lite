@@ -8,7 +8,7 @@
  */
 
 import { test } from '@japa/runner'
-import { isFQDN, isEmail, isURL, isIP } from '../src/validator.js'
+import { isFQDN, isEmail, isURL, isIP, isUUID } from '../src/validator.js'
 
 test.group('Validator', () => {
   test('Validate "{email}" address')
@@ -541,5 +541,17 @@ test.group('Validator', () => {
     ])
     .run(({ assert }, { address, isValid }) => {
       assert.equal(isIP(address, 6), isValid)
+    })
+
+  test('Validate UUID ("{uuid}")')
+    .with([
+      { uuid: '7b90ac86-e184-11ef-9cd2-0242ac120002', isValid: true },
+      { uuid: '47eb026e-809d-4a11-909e-9c7cdce5fb48', isValid: true },
+      { uuid: '0194c789-ee48-776c-bc09-24dcb622446a', isValid: true },
+      { uuid: 'f47ac10b-58cc-4372-a567-0e02b2xc3d479', isValid: false },
+      { uuid: 'f47ac10b-58cc-4372-a567-0e02b2xc3d49', isValid: false },
+    ])
+    .run(({ assert }, { uuid, isValid }) => {
+      assert.equal(isUUID(uuid), isValid)
     })
 })
