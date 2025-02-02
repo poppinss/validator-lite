@@ -84,6 +84,8 @@ schema.string({ format: 'host' })
 schema.string({ format: 'url' })
 // Must be a valid email address
 schema.string({ format: 'email' })
+// Must be a valid UUID
+schema.string({ format: 'uuid' })
 ```
 
 When validating the `url` format, you can also define additional options to force/ignore the `tld` and `protocol`.
