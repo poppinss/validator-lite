@@ -377,4 +377,53 @@ test.group('schema | enum', () => {
     expectTypeOf(value).toEqualTypeOf<Guards>()
     assert.deepEqual(value, Guards.WEB)
   })
+
+  test('do not throw error when enum is optional and missing', ({ assert, expectTypeOf }) => {
+    enum Guards {
+      API = 'api',
+      WEB = 'web',
+    }
+    const value = schema.enum.optional(Object.values(Guards))('AUTH_GUARD')
+    expectTypeOf(value).toEqualTypeOf<Guards | undefined>()
+    assert.equal(value, undefined)
+  })
+
+  test('throw error when enum is optional and invalid', () => {
+    enum Guards {
+      API = 'api',
+      WEB = 'web',
+    }
+    schema.enum.optional(Object.values(Guards))('AUTH_GUARD', 'test')
+  }).throws('"AUTH_GUARD" env variable must be one of "api,web" (Current value: "test")')
+
+  test('do not throw error when enum is conditionally optional and missing', ({
+    assert,
+    expectTypeOf,
+  }) => {
+    enum Guards {
+      API = 'api',
+      WEB = 'web',
+    }
+    const value = schema.enum.optionalWhen(true, Object.values(Guards))('AUTH_GUARD')
+    expectTypeOf(value).toEqualTypeOf<Guards | undefined>()
+    assert.equal(value, undefined)
+  })
+
+  test('throw error when enum is conditionally optional and invalid', () => {
+    enum Guards {
+      API = 'api',
+      WEB = 'web',
+    }
+
+    schema.enum.optionalWhen(true, Object.values(Guards))('AUTH_GUARD', 'test')
+  }).throws('"AUTH_GUARD" env variable must be one of "api,web" (Current value: "test")')
+
+  test('throw error when enum is conditionally required and missing', () => {
+    enum Guards {
+      API = 'api',
+      WEB = 'web',
+    }
+
+    schema.enum.optionalWhen(false, Object.values(Guards))('AUTH_GUARD')
+  }).throws('Missing environment variable "AUTH_GUARD"')
 })

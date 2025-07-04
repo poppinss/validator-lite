@@ -73,16 +73,12 @@ function validateDisplayName(displayName: string) {
  * Check if the provided value is a valid IP address
  */
 export function isIP(str: string, version?: 4 | 6): boolean {
-  if (!version) {
-    return isIP(str, 4) || isIP(str, 6)
-  }
   if (version === 4) {
     return IPv4AddressRegExp.test(str)
-  }
-  if (version === 6) {
+  } else if (version === 6) {
     return IPv6AddressRegExp.test(str)
   }
-  return false
+  return isIP(str, 4) || isIP(str, 6)
 }
 
 export function isFQDN(
