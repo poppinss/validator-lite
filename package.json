@@ -103,7 +103,8 @@
       "html"
     ],
     "exclude": [
-      "tests/**"
+      "tests/**",
+      "src/validator.ts"
     ]
   },
   "prettier": "@adonisjs/prettier-config"

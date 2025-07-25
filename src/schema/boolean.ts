@@ -8,7 +8,7 @@
  */
 
 import type { SchemaFnOptions } from '../types.js'
-import { ensureValue, BOOLEAN_NEGATIVES, BOOLEAN_POSITIVES } from './helpers.js'
+import { ensureExists, BOOLEAN_NEGATIVES, BOOLEAN_POSITIVES } from './helpers.js'
 
 /**
  * Casts a string value to a boolean
@@ -32,7 +32,7 @@ function castToBoolean(key: string, value: string, message?: string): boolean {
  */
 export function boolean(options?: SchemaFnOptions) {
   return function validate(key: string, value?: string): boolean {
-    ensureValue(key, value, options?.message)
+    ensureExists(key, value, options?.message)
     return castToBoolean(key, value, options?.message)
   }
 }

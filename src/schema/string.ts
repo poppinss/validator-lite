@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 
-import { ensureValue } from './helpers.js'
+import { ensureExists } from './helpers.js'
 import type { StringFnOptions } from '../types.js'
 import { isFQDN, isIP, isURL, isEmail, isUUID } from '../validator.js'
 
@@ -68,7 +68,7 @@ const formats: {
  */
 export function string(options?: StringFnOptions) {
   return function validate(key: string, value?: string): string {
-    ensureValue(key, value, options?.message)
+    ensureExists(key, value, options?.message)
 
     if (options?.format) {
       formats[options.format](key, value, options)

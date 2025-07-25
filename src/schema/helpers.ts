@@ -20,7 +20,7 @@ export const BOOLEAN_NEGATIVES = ['0', 0, 'false', false]
 /**
  * Ensures the value to exist
  */
-export function ensureValue(
+export function ensureExists(
   key: string,
   value?: string,
   message?: string

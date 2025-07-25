@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 
-import { ensureValue } from './helpers.js'
+import { ensureExists } from './helpers.js'
 import type { SchemaFnOptions } from '../types.js'
 
 /**
@@ -28,7 +28,7 @@ export function castToNumber(key: string, value: string, message?: string): numb
  */
 export function number(options?: SchemaFnOptions) {
   return function validate(key: string, value?: string): number {
-    ensureValue(key, value, options?.message)
+    ensureExists(key, value, options?.message)
     return castToNumber(key, value, options?.message)
   }
 }

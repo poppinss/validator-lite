@@ -8,7 +8,7 @@
  */
 
 import type { SchemaFnOptions } from '../types.js'
-import { ensureValue, BOOLEAN_NEGATIVES, BOOLEAN_POSITIVES } from './helpers.js'
+import { ensureExists, BOOLEAN_NEGATIVES, BOOLEAN_POSITIVES } from './helpers.js'
 
 /**
  * Validates the number to be present in the user defined choices.
@@ -53,7 +53,7 @@ function ensureOneOf(choices: readonly any[], key: string, value: any, message?:
  */
 export function oneOf<K extends any>(choices: readonly K[], options?: SchemaFnOptions) {
   return function validate(key: string, value?: string): K {
-    ensureValue(key, value, options?.message)
+    ensureExists(key, value, options?.message)
     return ensureOneOf(choices, key, value, options?.message)
   }
 }
