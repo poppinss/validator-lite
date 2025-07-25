@@ -1,18 +1,12 @@
-
 # Validator Lite
-> Typed schema based validation with low calories
+> Typed schema-based validation with low calories
 
 [![github-actions-image]][github-actions-url] [![npm-image]][npm-url] [![license-image]][license-url] [![typescript-image]][typescript-url]
 
-Really simple and lightweight validation library for JavaScript. Used by [**@adonisjs/env**](https://github.com/adonisjs/env/) for validating environment variables.
-
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+A lightweight schema-based validation library similar to Zod and VineJS. It is used by the  [**@adonisjs/env**](https://github.com/adonisjs/env/) for validating environment variables, as bundling a full-blown validation library to validate environment variables seems like overkill.
 
 ## Installation
-Install the module from npm registry as follows:
+Install the module from the npm registry as follows:
 
 ```sh
 npm install @poppinss/validator-lite
@@ -35,27 +29,25 @@ import { schema } from '@poppinss/validator-lite'
 /**
  * Define a schema
  */
-const userSchema = {
-  name: schema.string(),
-  age: schema.number(),
-  email: schema.string.optional(),
-  website: schema.string({ format: 'url' }),
+const envSchema = {
+  HOST: schema.string({ format: 'host' }),
+  PORT: schema.number(),
+  APP_URL: schema.string.optional({ type: 'url', tld: false }),
 }
 
 /**
  * Define the data
  */
-const data = {
-  name: 'John doe',
-  age: 25,
-  website: 'https://adonisjs.com',
+const envVariables = {
+  HOST: 'localhost',
+  PORT: '3333'
 }
 
 /**
  * Validate the data
  */
-for (let [key, fn] of Object.entries(userSchema)) {
-  fn(key, user[key])
+for (let [key, schemaFn] of Object.entries(envSchema)) {
+  schemaFn(key, envVariables[key])
 }
 ```
 
@@ -63,13 +55,15 @@ for (let [key, fn] of Object.entries(userSchema)) {
 Following is the list of available methods :
 
 ### schema.string
-Validates the value to check if it exists and if it is a valid string. Empty strings fail the validations, and you must use the optional variant to allow empty strings.
+Validate the value to exist and be a valid non-empty string.
 
 ```ts
 {
   APP_KEY: schema.string()
 }
-// Mark it as optional
+```
+
+```ts
 {
   APP_KEY: schema.string.optional()
 }
@@ -78,27 +72,40 @@ Validates the value to check if it exists and if it is a valid string. Empty str
 You can also force the value to have one of the pre-defined formats.
 
 ```ts
-// Must be a valid host (url or ip)
+/**
+ * Must be a valid host (URL or IP address)
+ */
 schema.string({ format: 'host' })
-// Must be a valid URL
+
+/**
+ * Must be a valid URL with or without tld
+ */
 schema.string({ format: 'url' })
-// Must be a valid email address
+schema.string({ format: 'url', tld: false })
+
+/**
+ * Must be a valid email address
+ */
 schema.string({ format: 'email' })
-// Must be a valid UUID
+
+/**
+ * Must be a valid UUID
+ */
 schema.string({ format: 'uuid' })
 ```
 
 When validating the `url` format, you can also define additional options to force/ignore the `tld` and `protocol`.
 
 ```ts
-schema.string({ format: 'url', tld: false, protocol: false })
+schema.string({
+  format: 'url',
+  tld: false, // allow URL without .com, .net, and so on
+  protocol: false
+})
 ```
 
----
-
 ### schema.boolean
-
-Enforces the value to be a valid string representation of a boolean. Following values are considered as valid booleans and will be converted to `true` or `false`.
+Validate the value to exist and be a valid non-empty boolean value. The following values will be cast to a JavaScript boolean data type.
 
 - `'1', 'true'` are casted to `Boolean(true)`
 - `'0', 'false'` are casted to `Boolean(false)`
@@ -107,7 +114,9 @@ Enforces the value to be a valid string representation of a boolean. Following v
 {
   CACHE_VIEWS: schema.boolean()
 }
-// Mark it as optional
+```
+
+```ts
 {
   CACHE_VIEWS: schema.boolean.optional()
 }
@@ -116,39 +125,37 @@ Enforces the value to be a valid string representation of a boolean. Following v
 ---
 
 ### schema.number
-
-Enforces the value to be a valid string representation of a number.
+Validate the value to exist and be a valid non-empty numeric value. The string representation of a number value will be cast to a JavaScript number data type.
 
 ```ts
 {
   PORT: schema.number()
 }
-// Mark it as optional
+```
+
+```ts
 {
   PORT: schema.number.optional()
 }
 ```
 
----
-
 ### schema.enum
-
-Forces the value to be one of the pre-defined values.
+Validate the value to exist and must be one of the pre-defined values.
 
 ```ts
 {
-  MY_ENUM: schema.enum(['development', 'production'] as const)
+  NODE_ENV: schema.enum(['development', 'production'] as const)
 }
-// Mark it as optional
+```
+
+```ts
 {
   MY_ENUM: schema.enum.optional(['development', 'production'] as const)
 }
 ```
 
----
-
 ### Custom functions
-For every other validation use case, you can define your custom functions.
+For all other validation use cases, you can use custom functions. A custom function can throw errors for invalid values and must return the final output value. 
 
 ```ts
 {
@@ -156,17 +163,15 @@ For every other validation use case, you can define your custom functions.
     if (!value) {
       throw new Error('Value for PORT is required')
     }
-    
+
     if (isNaN(Number(value))) {
       throw new Error('Value for PORT must be a valid number')    
     }
+
     return Number(value)
   }
 }
 ```
-
-- Make sure to always return the value after validating it.
-- The return value can be different from the initial input value.
 
 [github-actions-image]: https://img.shields.io/github/actions/workflow/status/poppinss/validator-lite/checks.yml?style=for-the-badge
 [github-actions-url]: https://github.com/poppinss/validator-lite/actions "github-actions"
