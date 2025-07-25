@@ -3,7 +3,7 @@
 
 [![github-actions-image]][github-actions-url] [![npm-image]][npm-url] [![license-image]][license-url] [![typescript-image]][typescript-url]
 
-A lightweight schema-based validation library similar to Zod and VineJS. It is used by the  [**@adonisjs/env**](https://github.com/adonisjs/env/) for validating environment variables, as bundling a full-blown validation library to validate environment variables seems like overkill.
+A lightweight schema-based validation library similar to Zod and VineJS. It is used by the  [**@adonisjs/env**](https://github.com/adonisjs/env) package for validating environment variables, as bundling a full-blown validation library to validate environment variables seems like overkill.
 
 ## Installation
 Install the module from the npm registry as follows:
@@ -121,8 +121,6 @@ Validate the value to exist and be a valid non-empty boolean value. The followin
   CACHE_VIEWS: schema.boolean.optional()
 }
 ```
-
----
 
 ### schema.number
 Validate the value to exist and be a valid non-empty numeric value. The string representation of a number value will be cast to a JavaScript number data type.
